@@ -366,7 +366,7 @@ export async function selectAll (elements: Array<SVGGraphicsElement>, neonView: 
       break;
 
     case 'selByLayerElement':
-      SelectOptions.triggerLayerElementActions();
+      SelectOptions.triggerAccidActions();
       break;
 
     case 'selBySyl':

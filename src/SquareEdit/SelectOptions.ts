@@ -5,6 +5,7 @@ import NeonView from '../NeonView';
 import { SplitHandler } from './StaffTools';
 import { EditorAction } from '../Types';
 import { getStaffBBox } from '../utils/SelectTools';
+import { selectNcs } from '../utils/SelectTools';
 
 /**
  * The NeonView parent to call editor actions.
@@ -149,15 +150,51 @@ export function changeStaffHandler(): void {
 }
 
 /**
- * Trigger the extra layer element action menu for a selection.
+ * Function to handle adding corresponding note
  */
- export function triggerLayerElementActions (): void {
+ export function addCorrespHandler(): void {
+  const toAdd: EditorAction[] = [];
+  const selected = Array.from(document.getElementsByClassName('selected'));
+  selected.forEach(elem => {
+    toAdd.push(
+      {
+        'action': 'set',
+        'param': {
+          'corresp': elem.id
+        }
+      }
+    );
+  });
+  const addCorrespAction: EditorAction = {
+    'action': 'set',
+    'param': toAdd
+  };
+  endOptionsSelection();
+  neonView.edit(addCorrespAction, neonView.view.getCurrentPageURI()).then(async (result) => { 
+    if (result) {
+      await neonView.updateForCurrentPage();
+      Notification.queueNotification('Add corresponding note action successful');
+    }
+    selectNcs;
+    // clickSelect('.active-page > svg > svg, .active-page > svg > svg rect');
+  });
+}
+
+/**
+ * Trigger the extra accid action menu for a selection.
+ */
+ export function triggerAccidActions(): void {
   endOptionsSelection();
   try {
     const moreEdit = document.getElementById('moreEdit');
     moreEdit.classList.remove('is-invisible');
-    moreEdit.innerHTML = Contents.defaultActionContents;
-  } catch (e) {}
+    moreEdit.innerHTML =
+      '<div><p class=\'control\'>' +
+          '<button class=\'button\' id=\'delete\'>Delete</button></p></div>' +
+      '<div><p class=\'control\'>' +
+        '<button class=\'button\' id=\'addCorresp\'>Add corresponding note</button></p></div>';
+    document.getElementById('addCorresp').addEventListener('click', addCorrespHandler);
+  } catch (e) { console.debug(e); }
 
   try {
     const del = document.getElementById('delete');

@@ -188,7 +188,8 @@ class InfoModule implements InfoInterface {
         else if((attributes['accid']).toUpperCase() == 'N'){
           type = "Natural";
         }
-        body += 'Accid Type: ' + type;
+        body += 'Accid Type: ' + type + '\r\n' +
+                'Corresponding Note: ' + attributes['corresp'];
         break;
       case 'clef':
         attributes = await this.neonView.getElementAttr(id, this.neonView.view.getCurrentPageURI());
