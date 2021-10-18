@@ -149,9 +149,9 @@ export function changeStaffHandler(): void {
 }
 
 /**
- * Trigger the extra layer element action menu for a selection.
+ * Trigger the extra accid action menu for a selection.
  */
- export function triggerLayerElementActions (): void {
+ export function triggerAccidActions (): void {
   endOptionsSelection();
   try {
     const moreEdit = document.getElementById('moreEdit');

@@ -276,7 +276,7 @@ export async function selectAll (elements: Array<SVGGraphicsElement>, neonView: 
   }
 
   let selectionClass;
-  let containsClefOrCustos = false;
+  let containsClefOrCustosOrAccid = false;
 
   switch (selectionType) {
     case 'selBySyl':
@@ -308,13 +308,13 @@ export async function selectAll (elements: Array<SVGGraphicsElement>, neonView: 
   for (const element of elements) {
     let grouping = element.closest(selectionClass);
     if (grouping === null) {
-      // Check if we click-selected a clef or a custos
-      grouping = element.closest('.clef, .custos');
+      // Check if we click-selected a clef or a custos or an accid
+      grouping = element.closest('.clef, .custos, .accid');
       if (grouping === null) {
-        console.warn('Element ' + element.id + ' is not part of specified group and is not a clef or custos.');
+        console.warn('Element ' + element.id + ' is not part of specified group and is not a clef or custos or accid.');
         continue;
       }
-      containsClefOrCustos = containsClefOrCustos || true;
+      containsClefOrCustosOrAccid = containsClefOrCustosOrAccid || true;
     }
     groupsToSelect.add(grouping);
 
@@ -336,13 +336,15 @@ export async function selectAll (elements: Array<SVGGraphicsElement>, neonView: 
 
   const groups = Array.from(groupsToSelect.values()) as SVGGraphicsElement[];
 
-  // Handle occurance of clef or custos
-  if (containsClefOrCustos) {
+  // Handle occurance of clef or custos or accid
+  if (containsClefOrCustosOrAccid) {
     // A context menu will only be displayed if there is a single clef
     if (groupsToSelect.size === 1 && groups[0].classList.contains('clef')) {
       SelectOptions.triggerClefActions(groups[0]);
     } else if (groupsToSelect.size === 1 && groups[0].classList.contains('custos')) {
       SelectOptions.triggerCustosActions();
+    } else if (groupsToSelect.size === 1 && groups[0].classList.contains('accid')) {
+      SelectOptions.triggerAccidActions();
     } else {
       if (selectionType == 'selBySyl') {
         SelectOptions.triggerDefaultSylActions();
@@ -366,7 +368,7 @@ export async function selectAll (elements: Array<SVGGraphicsElement>, neonView: 
       break;
 
     case 'selByLayerElement':
-      SelectOptions.triggerLayerElementActions();
+      SelectOptions.triggerAccidActions();
       break;
 
     case 'selBySyl':
