@@ -186,6 +186,14 @@ export const custosActionContents: string =
     '<button class=\'button\' id=\'changeStaff\'>Re-associate to nearest staff</button></p></div>';
 
 /**
+ * Contents of accid action menu.
+ */
+export const accidActionContents: string =
+'<div><p class=\'control\'>' +
+'<button class=\'button\' id=\'delete\'>Delete</button>' +
+'<button class=\'button\' id=\'changeCorresp\'>Change corresponding note</button></p></div>';
+
+/**
  * Contents of split action menu.
  * @type {string}
  */

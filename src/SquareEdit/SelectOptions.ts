@@ -149,6 +149,30 @@ export function changeStaffHandler(): void {
 }
 
 /**
+ * Function to handle re-associating elements to the nearest staff
+ */
+ export function changeCorrespHandler(): void {
+  const toChange: EditorAction[] = [];
+  const selected = Array.from(document.getElementsByClassName('selected'));
+  selected.forEach(elem => {
+    toChange.push(
+      {
+        'action': 'changeCorresp',
+        'param': {
+          'elementId': elem.id
+        }
+      }
+    );
+  });
+  const chainAction: EditorAction = {
+    'action': 'chain',
+    'param': toChange
+  };
+  endOptionsSelection();
+  neonView.edit(chainAction, neonView.view.getCurrentPageURI()).then(() => { neonView.updateForCurrentPage(); });
+}
+
+/**
  * Trigger the extra accid action menu for a selection.
  */
  export function triggerAccidActions (): void {
@@ -156,8 +180,13 @@ export function changeStaffHandler(): void {
   try {
     const moreEdit = document.getElementById('moreEdit');
     moreEdit.classList.remove('is-invisible');
-    moreEdit.innerHTML = Contents.defaultActionContents;
-  } catch (e) {}
+    moreEdit.innerHTML = 
+      '<div><p class=\'control\'>' +
+          '<button class=\'button\' id=\'delete\'>Delete</button></p></div>' +
+      '<div><p class=\'control\'>' +
+        '<button class=\'button\' id=\'changeCorresp\'>Change corresponding note</button></p></div>';
+    document.getElementById('changeCorresp').addEventListener('click', changeCorrespHandler);
+    } catch (e) { console.debug(e); }
 
   try {
     const del = document.getElementById('delete');
