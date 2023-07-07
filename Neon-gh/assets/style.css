@@ -1,14 +1,12 @@
 /* 
-    Note: Bulma styles are outdated and are not up to industry standards. 
-    We need to get rid of it eventually. 
-    In the meantime, we use '!important' occasionally to override Bulma.
+    Note: Bulma styles are a mess. We need to get rid of it eventually. 
+    In the meantime, we use !important occasionally to override Bulma.
 */
 
 @import url("https://unpkg.com/diva.js@6.0.2/build/diva.css");
 
-/* ----------------------- */
-/* General styles
-/* ----------------------- */
+
+/* Section: General styles */
 
 html {
     overflow: hidden;
@@ -23,7 +21,6 @@ body {
     margin: 0px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
 }
 
 a {
@@ -39,10 +36,8 @@ a:hover {
     justify-content: flex-end;
 }
 
-/* ----------------------- */
-/* Section: Top Navbar 
-/* ----------------------- */
 
+/* Section: Top Navbar */
 /* CSS in here could use a little clean-up */
 
 .navbar.is-light {
@@ -214,80 +209,45 @@ a:hover {
     display: block;
 }
 
-/* Tov navbar styles styles for smaller devices */
-@media screen and (max-width: 1023px) {    
+/* Tablet and mobile styles for navbar */
+@media screen and (max-width: 1023px) {
     .navbar-menu.is-active {
         display: flex;
         flex-direction: column;
         background-color: #e2e2e2;
-        min-height: 91vh;
-        justify-content: space-between;
-        overflow: scroll;
-        gap: 30px;
-        padding: 0;
-    }
-    .navbar-start {
-        gap: 20px;
     }
     .navbar-main-content-container {
         display: flex;
-        flex-direction: row;
-        height: fit-content;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        align-content: space-between;
-        gap: 40px 0px;
-    }
-    #unsaved-changes-container {
-        transform: scale(0.5);
+        flex-direction: column;
+        height: 50%;
     }
     .navbar-item.has-dropdown.is-hoverable {
         color: #68A7AD;
-        flex-grow: 1;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        align-items: flex-start;
+        margin-top: 3vh;
     }
     .navbar-item.has-dropdown.is-hoverable:hover {
         background-color: #e2e2e2 !important;
         color: #68A7AD !important;
         border-radius: 0px;
     }
-    .navbar-element.navbar-btn {
-        cursor: pointer;
-        overflow: hidden;
-        border-bottom: 1px solid #7cb1b7;
-        font-size: 1.2rem;
-        width: 100%;
-    }
-    .navbar-btn-text {
-        font-weight: bold;
-    }
     .navbar-dropdown {
-        border-top: none;
+        border-top: 1px solid #7cb1b7;
         box-shadow: none;
         min-width: 13vw;
-        gap: 5px;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        padding: 0;
     }
-    .navbar-dropdown-item {
-        font-size: 1rem;
+    .navbar-element.navbar-btn:hover {
+        background-color: #e2e2e2;
+        color: #7cb1b7 !important;
+        cursor: auto;
     }
-    #feedback-form-btn-container {
-        margin: 0;
-        border: none;
-        border-radius: 0;
+}
+@media only screen and (max-width: 900px) {
+    #navMenu {
+        height: 100%;
     }
 }
 
-/* ----------------------- */
-/* Editor Main Body
-/* ----------------------- */
+/* Section: Editor Main Body */
 
 #editor-body-container {
     overflow: hidden;
@@ -334,10 +294,8 @@ a:hover {
     height: 100%;
 }
 
-/* ----------------------- */
-/* Section: Editor Panel
-/* ----------------------- */
 
+/* Section: Editor Panel */
 /* Could use a little clean-up */
 
 #right-column {
@@ -367,6 +325,7 @@ a:hover {
 .panel-heading.focused {
     text-decoration: underline;
     text-decoration-thickness: 2px;
+    /* background-color: #b6d8f2; */
 }
 .panel-heading-title {
     max-width: 0px;
@@ -496,7 +455,6 @@ a:hover {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: wrap;
 }
 #display-options-separator {
     border-right: 2px solid rgb(232 232 232);
@@ -569,7 +527,6 @@ a:hover {
     font-size: 0.875em;
     justify-content: center;
     width: 100%;
-    flex-wrap: wrap;
 }
 #displayContents .button {
     width: 10.5em;
@@ -689,44 +646,30 @@ a:hover {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 98%;
-    flex-wrap: wrap;
+    width: 95%;
     margin: 5px 0px;
-    gap: 10px;
 }
 .notification-wrapper {
+    /* padding-left: 10px; */
+    /* padding-right: 10px; */
     padding: 10px;
+    /* border: 1px solid lightgray; */
     background-color: #efefef;
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 85%;
-    flex-grow: 1;
 }
 .remove-notif-icon-wrapper {
-    /* height: 100%; */
-    width: 30px;
+    height: 100%;
+    width: 7%;
 }
 .remove-notif-icon {
     cursor: pointer;
 }
 
-/* Navigation panel styles for smaller devices */
-@media screen and (max-width: 1023px) {
-    .notification-container {
-        justify-content: center;
-        gap: 7px;
-    }
-    .remove-notif-icon-wrapper {
-        min-width: 30px;
-    }
-}
-
-
-/* ----------------------- */
-/* Neon Notifications
-/* ----------------------- */
+/* Section: Neon Notifications */
 
 /* notification keyframes */
 @keyframes slideInFromLeft {
@@ -765,6 +708,7 @@ a:hover {
 }
 
 .neon-notification-warning {
+    /* background: #fae095; */
     background: #f5c144;
 }
 
@@ -772,9 +716,8 @@ a:hover {
     background: #6dc492;
 }
 
-/* ---------------------------- */
-/* Section: Loading Animation
-/* ---------------------------- */ 
+
+/* Section: Loading Animation */ 
 
 /* loading animation keyframes */
 @keyframes spin {
@@ -807,9 +750,7 @@ a:hover {
     animation: spin 2s linear infinite;
 }
 
-/* ----------------------- */
-/* Section: Modal Windows
-/* ----------------------- */
+/* Section: Modal Windows */
 
 /* neon modal veil */
 #neon-modal-window-container {
