@@ -188,10 +188,19 @@
 
 .nav-path-section {
   cursor: pointer;
+  padding: 3px;
+  margin: 2px;
 }
 
 .nav-path-section:hover {
   text-decoration: solid underline #589ed5 2px;
+}
+
+.nav-path-section.dragenter {
+  background-color: #c3e5ff;
+  border-radius: 5px;
+  border: 2px dashed #589ed5;
+  margin: 0px;
 }
 
 #fs-back-btn {
@@ -199,9 +208,7 @@
   font-weight: 900;
   letter-spacing: 3px;
   padding: 6px 8px;
-  border-color: #7ab2b7;
-  border-width: 2px;
-  border-style: solid;
+  border: 2px solid #7ab2b7;
   border-radius: 5px;
   color: #7ab2b7;
   opacity: 40%;
@@ -210,6 +217,13 @@
 #fs-back-btn.active {
   cursor: pointer;
   opacity: 100%;
+}
+
+#fs-back-btn.dragenter {
+  background-color: #cafbff;
+  border-radius: 5px;
+  border-style: dashed;
+  margin: 0px;
 }
 
 .fs-nav-zone {
@@ -264,25 +278,17 @@
   }
 
   &.selected {
-    border: 2px solid #5e5e5e;
+    border-color: #5e5e5e;
   }
+}
+
+.folder-entry.dragenter {
+  border: 2px dashed #64bcff;
 }
 
 .file-entry {
   color: #696969;
   background-color: #f6f6f6;
-}
-
-.folio-entry {
-}
-
-.manuscript-entry {
-}
-
-.filename-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 input.filename-input, select.file-input, textarea.file-input {
@@ -484,11 +490,13 @@ input.filename-input, select.file-input, textarea.file-input {
 
 #unpaired_container {
   margin-right: 5%;
-  width: 65%
+  width: 65%;
 }
 
 #paired_container {
-  width: 30%
+  width: 30%;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -529,9 +537,24 @@ input.filename-input, select.file-input, textarea.file-input {
   border-bottom: 1px solid #dfdfdf;
 }
 
+.file_sort_name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:rgba(123, 177, 183, 0.1);
+  border-bottom: 1px solid #dfdfdf;
+  font-size: 80%;
+}
+
+.arrow_btn {
+  margin-left: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .file_list {
   height: 100%;
-  width: 98%;
+  width: 99%;
   overflow: scroll;
 }
 
@@ -540,15 +563,25 @@ input.filename-input, select.file-input, textarea.file-input {
   min-height: 30px;
   cursor: pointer;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .unpaired_item_radio {
-  width: 10%;
   cursor: pointer;
 }
 
 .unpaired_item_label {
   font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.unpaired_del_btn {
+  width: 7%;
+  opacity: 0.4;
+  margin-left: auto;
   cursor: pointer;
 }
 
@@ -562,13 +595,13 @@ input.filename-input, select.file-input, textarea.file-input {
   border-top: 1px solid #dfdfdf;
 }
 
-.tile_list {
+.folio_list {
   height: 80%;
   width: 100%;
   overflow: scroll;
 }
 
-.tile_item {
+.folio_item {
   border: 1px solid #d5d5d5;
   border-radius: 4px;
   height: 30px;
@@ -579,18 +612,18 @@ input.filename-input, select.file-input, textarea.file-input {
   align-items: center;
 }
 
-.tile-filename {
+.folio-filename {
   width: 100%;
   font-size: 12px;
 }
 
-.delete_button {
+.unpair_btn {
+  width: 9%;
   border: none;
-  color: rgb(255, 0, 187);
   font-weight: 100;
   font-size: large;
   cursor: pointer;
-  background-color: transparent;
+  opacity: 0.4;
 }
 
 #upload_button_container {
@@ -608,9 +641,10 @@ input.filename-input, select.file-input, textarea.file-input {
 
 #uploading_spinner {
   opacity: 0;
-  color: #CD5C5C;
+  color: gray;
   font-size: x-large;
   font-weight: 100;
+  margin-left: 1em;
 }
 
 #uploading_spinner.visible {
@@ -633,3 +667,61 @@ input.filename-input, select.file-input, textarea.file-input {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
+/* Move-To Folder Tree */
+.move-menu-msg {
+  font-size: 12px;
+  padding: 10px;
+}
+
+.tree-container {
+  width: 70vw;
+  height: 60vh;
+  padding: 20px 50px;
+  overflow: scroll;
+}
+.tree-li-container {
+  display: flex;
+  line-height: 15px;
+  align-items: center;
+}
+
+.tree-name {
+  border-radius: 3px;
+  padding: 5px;
+  border: 2px solid transparent;
+
+  &:hover {
+    background-color: #bce2ff
+  }
+
+  &.selected {
+    border: 2px solid #c5c5c5;
+  }
+}
+
+.tree-arrow {
+  cursor: pointer;
+  user-select: none;
+  margin-left: -12px;
+
+  &.active {
+    transform: rotate(90deg);
+  } 
+}
+#tree-root ul {
+  list-style-type: none;
+  margin-left: -15px;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+#tree-root {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
